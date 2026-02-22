@@ -2,131 +2,373 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reverse Sales Tax Calculator – Complete Explanation and Reference</title>
-  <meta name="description" content="A detailed informational page explaining reverse sales tax calculation, how tax-inclusive pricing works, examples, use cases, and a reference to a free online calculator.">
+  <title>Reverse Sales Tax Calculator – Explanation & Reference</title>
+  <meta name="description" content="Learn how reverse sales tax calculation works with examples and use cases. Reference a free online calculator to find the original price before tax from a tax-inclusive total.">
   <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1b33;
+      --card:#0f1a2e;
+      --text:#eaf0ff;
+      --muted:#b7c3e6;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 14px 40px rgba(0,0,0,.45);
+      --accent:#22c55e;
+      --accent2:#16a34a;
+      --link:#a7f3d0;
+      --max:980px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background:
+        radial-gradient(900px 550px at 10% -10%, rgba(34,197,94,.22), transparent 60%),
+        radial-gradient(900px 550px at 110% 10%, rgba(56,189,248,.18), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 16px 60px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 16px;
+      border:1px solid var(--border);
+      background:rgba(15,27,51,.65);
+      backdrop-filter: blur(10px);
+      border-radius:16px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    .badge{
+      font-size:12px;
+      color:#0b1220;
+      background:linear-gradient(135deg, var(--accent), #86efac);
+      padding:4px 10px;
+      border-radius:999px;
+      font-weight:800;
+    }
+
+    .hero{
+      margin-top:18px;
+      padding:28px 18px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(15,27,51,.90), rgba(15,26,46,.85));
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(500px 260px at 20% 10%, rgba(34,197,94,.25), transparent 60%),
+        radial-gradient(600px 280px at 80% 20%, rgba(56,189,248,.18), transparent 60%);
+      pointer-events:none;
+    }
+
+    .hero > *{position:relative}
+
+    h1{
+      margin:0 0 10px;
+      font-size:34px;
+      line-height:1.15;
+      letter-spacing:-.3px;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      max-width:70ch;
+      font-size:16px;
+    }
+
+    .ctaRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(34,197,94,.35);
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#071015;
+      font-weight:800;
+      box-shadow: 0 12px 24px rgba(34,197,94,.18);
+      text-decoration:none;
+      min-height:44px;
+    }
+    .btn:hover{filter:brightness(1.05); text-decoration:none}
+
+    .btnGhost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      text-decoration:none;
+      min-height:44px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    @media (min-width: 860px){
+      .grid{grid-template-columns: 1.2fr .8fr;}
+    }
+
+    .card{
+      border:1px solid var(--border);
+      background:rgba(15,26,46,.78);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:-.2px;
+    }
+
+    p{margin:10px 0; color:var(--text)}
+    .muted{color:var(--muted)}
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+    .kpi > div{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+    }
+    .kpi .num{font-size:16px; font-weight:900}
+    .kpi .lbl{font-size:12px; color:var(--muted); margin-top:2px}
+
+    .list{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+    .list li{margin:6px 0}
+
+    .note{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px dashed rgba(167,243,208,.35);
+      background:rgba(16,185,129,.08);
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .shot{
+      border-radius:16px;
+      border:1px solid var(--border);
+      overflow:hidden;
+      background:rgba(255,255,255,.02);
+    }
+    .shot .ph{
+      padding:16px;
+      color:var(--muted);
+      font-size:13px;
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+    }
+    .shot img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
 
-<h1>Reverse Sales Tax Calculator</h1>
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Reference</span>
+        <span>Reverse Sales Tax Calculator</span>
+      </div>
+      <span class="muted" style="font-size:13px;">Informational page hosted on GitHub Pages</span>
+    </div>
 
-<p>
-In many countries and regions, prices are often displayed as tax-inclusive amounts.
-While this makes checkout simpler, it can create confusion when someone needs to know
-the original price before tax. Reverse sales tax calculation is used to solve this problem.
-</p>
+    <section class="hero">
+      <h1>Reverse Sales Tax Calculator</h1>
+      <p class="sub">
+        Learn how reverse sales tax calculation works when a final price already includes tax.
+        This page explains the method with a clear example and links to a free calculator tool.
+      </p>
 
-<p>
-Instead of adding tax to a base price, reverse sales tax calculation separates the tax
-portion from a total amount. This method is commonly used in accounting, invoicing,
-expense verification, and price analysis.
-</p>
+      <div class="ctaRow">
+        <a class="btn" href="https://reversesalestaxcalc.org/" target="_blank" rel="noopener">
+          Open the Free Calculator
+        </a>
+        <a class="btnGhost" href="#how-it-works">How it works</a>
+        <a class="btnGhost" href="#example">Example</a>
+      </div>
 
-<h2>Understanding Tax-Inclusive Pricing</h2>
+      <div class="kpi" aria-label="Quick highlights">
+        <div>
+          <div class="num">Accurate</div>
+          <div class="lbl">Uses the correct reverse formula</div>
+        </div>
+        <div>
+          <div class="num">Fast</div>
+          <div class="lbl">Instant base price + tax split</div>
+        </div>
+        <div>
+          <div class="num">Any Rate</div>
+          <div class="lbl">Works for any sales tax percentage</div>
+        </div>
+      </div>
 
-<p>
-Tax-inclusive pricing means that the sales tax is already included in the displayed price.
-This approach is widely used in retail, online shopping, and invoicing systems.
-While it provides transparency to consumers, it makes it difficult to identify the
-exact base price and tax amount without proper calculation.
-</p>
+      <div class="note">
+        This is an educational reference page. It contains only one outbound link to the recommended calculator tool.
+      </div>
+    </section>
 
-<p>
-Many people assume that subtracting the tax percentage from the total will give the
-original price. However, this approach is incorrect and can lead to inaccurate results.
-</p>
+    <div class="grid">
 
-<h2>What Is Reverse Sales Tax Calculation</h2>
+      <section class="card" id="how-it-works">
+        <h2>Understanding Tax-Inclusive Pricing</h2>
+        <p class="muted">
+          When prices are tax-inclusive, the tax portion is already “inside” the total.
+          That is why simply subtracting a percentage from the total often gives an incorrect base price.
+        </p>
 
-<p>
-Reverse sales tax calculation is the process of finding the original price of a product
-or service when the final amount already includes sales tax. The calculation works by
-dividing the total amount by one plus the tax rate.
-</p>
+        <h2>What Is Reverse Sales Tax Calculation</h2>
+        <p class="muted">
+          Reverse sales tax calculation finds the original price before tax from a tax-inclusive total.
+          It separates the tax portion from the total accurately.
+        </p>
 
-<p>
-This method ensures that both the base price and the tax portion are calculated accurately,
-regardless of the tax percentage applied.
-</p>
+        <h2>How Reverse Sales Tax Calculation Works</h2>
+        <p class="muted">
+          The correct method divides the total amount by (1 + tax rate). For example, with an 8% tax rate,
+          the divisor becomes 1.08.
+        </p>
 
-<h2>How Reverse Sales Tax Calculation Works</h2>
+        <ul class="list">
+          <li>Total includes tax → base price is not the total minus tax percent.</li>
+          <li>Divide by (1 + rate) to get the original pre-tax price.</li>
+          <li>Tax amount = total − original price.</li>
+        </ul>
 
-<p>
-To calculate the original price before tax, the total amount is divided by
-(1 + sales tax rate). For example, if the tax rate is 8 percent, the divisor becomes 1.08.
-</p>
+        <h2 style="margin-top:14px;">Common Use Cases</h2>
+        <ul class="list">
+          <li>Verifying invoices that show tax-inclusive totals</li>
+          <li>Checking online shopping prices across different tax rates</li>
+          <li>Accounting and bookkeeping verification</li>
+          <li>Refund and return calculations where tax is already included</li>
+        </ul>
+      </section>
 
-<p>
-This formula allows the correct separation of the tax portion from the total amount,
-which cannot be achieved through simple subtraction.
-</p>
+      <aside class="card" id="example">
+        <h2>Step-by-Step Example</h2>
+        <p class="muted">
+          If the final price is <strong>$108</strong> and the sales tax rate is <strong>8%</strong>,
+          the original price before tax is <strong>$100</strong>.
+          The remaining <strong>$8</strong> is the tax included in the total amount.
+        </p>
 
-<h2>Step-by-Step Example</h2>
+        <h2 style="margin-top:14px;">Recommended Online Tool</h2>
+        <p class="muted">
+          For a quick, error-free result, use the calculator below.
+        </p>
 
-<p>
-Consider a product with a final price of $108, where the sales tax rate is 8 percent.
-Using reverse sales tax calculation, the original price before tax is $100.
-The remaining $8 represents the tax included in the final amount.
-</p>
+        <p style="margin:10px 0 0;">
+          <a class="btn" href="https://reversesalestaxcalc.org/" target="_blank" rel="noopener">
+            ReverseSalesTaxCalc.org
+          </a>
+        </p>
 
-<p>
-This example demonstrates why reverse calculation is essential for accuracy in financial
-analysis and reporting.
-</p>
+        <div class="note" style="margin-top:14px;">
+          Tip: Keep this GitHub page as a simple reference. Avoid adding multiple outbound links.
+        </div>
+      </aside>
 
-<h2>Common Use Cases</h2>
+    </div>
 
-<ul>
-  <li>Verifying invoices that show tax-inclusive totals</li>
-  <li>Analyzing expenses for accounting and bookkeeping</li>
-  <li>Checking online shopping prices across different tax rates</li>
-  <li>Calculating refunds or returns where tax is already included</li>
-  <li>Understanding pricing structures in different regions</li>
-</ul>
+    <section class="card" style="margin-top:14px;">
+      <h2>Optional: Add a Screenshot Preview</h2>
+      <p class="muted">
+        If you want this page to visually resemble your main website, add a screenshot image file to the repo
+        and show it here. This is optional and does not add any extra outbound links.
+      </p>
 
-<h2>Who Benefits From Reverse Sales Tax Calculation</h2>
+      <div class="shot">
+        <div class="ph">
+          Add an image file in this repo (example: <strong>preview.png</strong>) and it will appear below.
+        </div>
+        <!--
+          How to use:
+          1) Upload an image to the repo root named: preview.png
+          2) Uncomment the <img> tag below.
+        -->
+        <!-- <img src="preview.png" alt="Reverse Sales Tax Calculator preview screenshot"> -->
+      </div>
 
-<p>
-Reverse sales tax calculation is useful for a wide range of individuals and professionals.
-Shoppers can better understand what they are paying for, while businesses can ensure
-accurate financial records.
-</p>
+      <div class="note">
+        If you upload a screenshot, keep it lightweight (optimized PNG/JPG). This improves presentation without affecting SEO risk.
+      </div>
+    </section>
 
-<p>
-Accountants, freelancers, small business owners, and consultants often rely on this method
-to validate amounts and maintain transparency in pricing.
-</p>
+    <div class="footer">
+      Hosted on GitHub Pages. This page is for informational reference and links to the recommended calculator tool.
+    </div>
 
-<h2>Recommended Online Tool</h2>
-
-<p>
-Manually performing reverse sales tax calculations can be time-consuming and prone to error.
-A free and simple online tool that performs this calculation accurately is available here:
-</p>
-
-<p>
-<a href="https://reversesalestaxcalc.org/" target="_blank" rel="noopener">
-ReverseSalesTaxCalc.org
-</a>
-</p>
-
-<p>
-The tool allows users to enter a total amount and tax rate to instantly calculate
-the original price before tax and the tax portion included.
-</p>
-
-<h2>Additional Notes</h2>
-
-<p>
-Sales tax rates can vary by location, state, or country. Reverse sales tax calculation
-remains accurate regardless of the rate, as long as the correct percentage is applied.
-</p>
-
-<p>
-This page is intended to provide a clear understanding of reverse sales tax calculation
-and serves as an informational reference for educational purposes.
-</p>
-
+  </div>
 </body>
 </html>
